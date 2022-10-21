@@ -13,6 +13,6 @@ export const getBox = (config: ConfigType) => {
     const height = config.SYMBOL_HEIGHT;
 
     const box = new PIXI.Graphics()
-    box.lineStyle(4, 0xff3300, 1).drawRoundedRect(0, 0, width, height, 30)
+    box.lineStyle(4, 0xff3300, 1).drawRoundedRect(0, 0, width, height, 40)
     return box
 }
