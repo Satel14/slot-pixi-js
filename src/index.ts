@@ -15,14 +15,14 @@ function setup(config: ConfigType) {
     let state: StateType = play;
     const allReels: Reel[] = [];
 
-    getSizeArray(config.REEL_AMOUNT, config.REEL_AMOUNT + 2).forEach((reel, reelIndex) => {
+    getSizeArray(config.REEL_AMOUNT, config.REEL_AMOUNT + 6).forEach((reel, reelIndex) => {
         const container = new PIXI.Container();
         const symbols: PIXI.Graphics[] = [];
 
         reel.forEach(symbolIndex => {
             const box = getBox(config);
-            const x = config.REEL_WIDTH * reelIndex + config.MARGIN;
-            const y = (symbolIndex - 1) * config.HEIGHT + config.MARGIN;
+            const x = 0;
+            const y = symbolIndex * config.HEIGHT;
             box.position.set(x, y)
             container.addChild(box)
 
@@ -35,8 +35,8 @@ function setup(config: ConfigType) {
         blur.blurY = 0;
         container.filters = [blur]
 
-        const spinTime = 1 + 1 * reelIndex;
-        const newReel = new Reel(container, symbols, blur, new Date(), spinTime);
+        const spinTime = 1000 + 1 * reelIndex;
+        const newReel = new Reel(container, symbols, blur, Date.now(), spinTime);
         allReels.push(newReel)
 
         app.stage.addChild(container)
@@ -45,10 +45,23 @@ function setup(config: ConfigType) {
     const viewwindow = new PIXI.Graphics()
     const x = config.MARGIN;
     const y = config.MARGIN;
-    viewwindow.lineStyle(4, 0x2344f2, 1).drawRoundedRect(x, y, config.VIEW_WIDTH, config.VIEW_HEIGHT, 40);
+    viewwindow.lineStyle(4, 0x2344f2, 1).drawRoundedRect(x, y, config.VIEW_WIDTH, config.VIEW_HEIGHT, 20);
     app.stage.addChild(viewwindow);
 
-
+    const playButton = new PIXI.Graphics()
+    const radius = 50;
+    const btnX = config.WIDTH - radius * 2;
+    const btnY = config.HEIGHT - radius * 2;
+    playButton.beginFill(0x1352ff).drawCircle(btnX, btnY, radius).endFill()
+    playButton.interactive = true;
+    playButton.buttonMode = true;
+    playButton.cursor = "pointer"
+    playButton.addListener('pointerdown', () => {
+        allReels.forEach(reel => {
+            reel.startTime = Date.now()
+        })
+    })
+    app.stage.addChild(playButton);
     // const pl = timer(play)
     app.ticker.add(() => {
         play(allReels, config)
