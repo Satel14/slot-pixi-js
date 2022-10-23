@@ -7,12 +7,14 @@ export default class Reel {
     public startTime: number;
     public spinTime: number;
     public position: number;
+    public stopTime: number;
     constructor(container: PIXI.Container, symbols: PIXI.Graphics[], filter: PIXI.filters.BlurFilter, startTime: number, spinTime: number) {
         this.container = container;
         this.symbols = symbols;
         this.filter = filter;
         this.startTime = startTime;
         this.spinTime = spinTime;
+        this.stopTime = this.stopTime;
         this.position = 0;
     }
 
@@ -23,6 +25,9 @@ export default class Reel {
     public remove(symbol: PIXI.Graphics): void {
         symbol.destroy()
         this.symbols.pop()
+    }
+    public isStopping() {
+        return Date.now() - this.startTime >= this.spinTime;
     }
 }
 

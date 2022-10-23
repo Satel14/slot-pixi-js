@@ -6,14 +6,17 @@ import { config, ConfigType } from "./config";
 import Reel from './Reel'
 
 function setup(config: ConfigType) {
+
+    let state: StateType = play;
+    const allReels: Reel[] = [];
+
     const app = new PIXI.Application({
         width: config.WIDTH,
         height: config.HEIGHT
     });
     document.body.appendChild(app.view);
 
-    let state: StateType = play;
-    const allReels: Reel[] = [];
+
 
     getSizeArray(config.REEL_AMOUNT, config.REEL_AMOUNT + 6).forEach((reel, reelIndex) => {
         const container = new PIXI.Container();
@@ -36,7 +39,7 @@ function setup(config: ConfigType) {
         container.filters = [blur]
 
         const spinTime = 1000 + 1 * reelIndex;
-        const newReel = new Reel(container, symbols, blur, Date.now(), spinTime);
+        const newReel = new Reel(container, symbols, blur, 0, spinTime);
         allReels.push(newReel)
 
         app.stage.addChild(container)
@@ -58,7 +61,9 @@ function setup(config: ConfigType) {
     playButton.cursor = "pointer"
     playButton.addListener('pointerdown', () => {
         allReels.forEach(reel => {
-            reel.startTime = Date.now()
+            reel.startTime = Date.now();
+            reel.position = Math.ceil(Math.random() * allReels.length)
+            reel.startTime = null;
         })
     })
     app.stage.addChild(playButton);

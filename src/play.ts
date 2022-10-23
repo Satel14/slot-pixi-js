@@ -13,22 +13,23 @@ const backOut = (amount: number) => {
 const easing = backOut(2)
 
 export default (allReels: Reel[], config: ConfigType) => {
-    // const final = (config.SYMBOLS_AMOUNT) * config.SYMBOL_HEIGHT + config.MARGIN;
     const final = config.MARGIN;
-    const stopTime = 100;
 
-    allReels.forEach((reel: Reel, reelIndex) => {
-        const isStop = Date.now() - reel.startTime >= reel.spinTime;
-        if (isStop) {
+    allReels.forEach(reel => {
+        if (reel.stopTime) {
             const now = Date.now();
-            const phase = Math.min(1, (now - reel.startTime - 1000 * (reelIndex + 1)) / 1000 * (reelIndex + 1))
-            const position = interpolation(0, 2 * config.HEIGHT, easing(phase));
+            const phase = Math.min(1, (now - reel.spinTime) / 1000);
+            const position = interpolation(0, reel.position * config.HEIGHT, easing(phase));
             reel.container.y = position;
-        } else {
+        } 
+        else {
             reel.container.y += 5;
         }
         if (reel.container.y >= final) {
-            reel.container.y = 0
+            reel.container.y = 0;
+            if (reel.isStopping()) {
+                reel.stopTime = Date.now();
+            }
         }
     })
 }
