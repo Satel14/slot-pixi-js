@@ -35,7 +35,8 @@ function setup(config: ConfigType) {
         blur.blurY = 0;
         container.filters = [blur]
 
-        const newReel = new Reel(container, symbols, blur);
+        const spinTime = 1 + 1 * reelIndex;
+        const newReel = new Reel(container, symbols, blur, new Date(), spinTime);
         allReels.push(newReel)
 
         app.stage.addChild(container)
