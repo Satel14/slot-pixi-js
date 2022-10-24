@@ -73,7 +73,7 @@ function setup() {
             box.position.set(boxX, boxY)
 
             const symbol = getRandomSprite(imgPaths, loader, config);
-            const symbolX = 0;
+            const symbolX = (config.REEL_WIDTH - symbol.width) / 2;
             const symbolY = symbolIndex * config.SYMBOL_HEIGHT;
             symbol.position.set(symbolX, symbolY)
 

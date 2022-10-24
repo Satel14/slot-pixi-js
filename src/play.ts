@@ -1,4 +1,3 @@
-import { getBox } from './utility';
 import { ConfigType } from './config'
 import Reel from './Reel';
 
@@ -23,7 +22,7 @@ export default (allReels: Reel[], config: ConfigType) => {
             reel.container.y = position;
         } 
         else {
-            reel.container.y += 5;
+            reel.container.y += config.SPIN_SPEED;
         }
         if (reel.container.y >= final) {
             reel.container.y = 0;

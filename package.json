@@ -10,11 +10,13 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "pixi.js": "^5.0.4",
-    "d3-ease": "^1.0.5"
+    "d3-ease": "^1.0.5",
+    "howler": "^2.1.2",
+    "pixi.js": "^5.0.4"
   },
   "devDependencies": {
     "@types/d3-ease": "^1.0.8",
+    "@types/howler": "^2.1.1",
     "copy-webpack-plugin": "^5.0.3",
     "html-webpack-plugin": "^5.5.0",
     "ts-loader": "^9.4.1",

@@ -23,6 +23,6 @@ export const getRandomSprite = (imgPaths: string[], loader: PIXI.Loader, config:
 
     const sprite = new PIXI.Sprite(symbolsTextures[textureIndex]);
     sprite.scale.x = sprite.scale.y = Math.min(config.REEL_WIDTH / sprite.width, config.SYMBOL_HEIGHT / sprite.height)
-    sprite.x = (280 - sprite.width) / 2;
+    // sprite.x = (280 - sprite.width) / 2;
     return sprite;
 }

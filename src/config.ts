@@ -5,6 +5,7 @@ export const config = {
     REEL_AMOUNT: 3,
     SYMBOLS_AMOUNT: 3,
     BTN_RADIUS: 100,
+    SPIN_SPEED: 10,
     get VIEW_WIDTH() {
         return this.WIDTH - this.MARGIN * 2;
     },
