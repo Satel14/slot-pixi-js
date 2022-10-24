@@ -8,6 +8,7 @@ export default class Reel {
     public spinTime: number;
     public position: number;
     public stopTime: number;
+    public previousPosition: number;
     public rectangles: PIXI.Graphics[];
     constructor(container: PIXI.Container, symbols: PIXI.Sprite[], rectangles: PIXI.Graphics[], filter: PIXI.filters.BlurFilter, startTime: number, spinTime: number) {
         this.container = container;
@@ -18,6 +19,7 @@ export default class Reel {
         this.position = 0;
         this.stopTime = 0;
         this.rectangles = rectangles;
+        this.previousPosition = null;
     }
 
     public add(symbol: PIXI.Sprite): void {
@@ -31,7 +33,9 @@ export default class Reel {
     public isStopping() {
         return Date.now() - this.startTime >= this.spinTime;
     }
-
+    public reelStopped(currentPosition: number) {
+        return this.previousPosition - currentPosition === 0;
+    }
     public removeRect(rectangles: PIXI.Graphics) {
         rectangles.destroy()
         this.rectangles.pop()

@@ -1,5 +1,5 @@
 export const config = {
-    WIDTH: 1200,
+    WIDTH: 1400,
     HEIGHT: 800,
     MARGIN: 300,
     REEL_AMOUNT: 3,

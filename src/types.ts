@@ -2,5 +2,5 @@ import { ConfigType } from "./config";
 import Reel from "./Reel";
 
 export interface StateType {
-    (allReels: Reel[], config?: ConfigType): void;
+    (allReels: Reel[],  state: StateType, config?: ConfigType): void;
 }

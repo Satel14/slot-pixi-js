@@ -1,3 +1,4 @@
+import { reelSpinSound } from './sounds';
 import { StateType } from './types';
 import { getSizeArray, getBox, getRandomSprite } from './utility';
 import play from './play'
@@ -22,6 +23,7 @@ const imgPaths = [
     'assets\\img\\symbols\\10.png',
     'assets\\img\\scatter.png',
     'assets\\img\\btn_spin.png',
+    'assets\\img\\misc.png',
 ];
 const loader = new PIXI.Loader();
 loader.add(imgPaths).load(setup)
@@ -37,21 +39,19 @@ function setup() {
     });
     document.body.appendChild(app.view);
 
-    const background = new PIXI.Sprite(
-        loader.resources['assets\\img\\background.png'].texture);
+    const backgroundTexture = loader.resources['assets\\img\\background.png'].texture;
     const backgroundContainer = new PIXI.Container();
-    const columnAmount = Math.ceil(config.VIEW_WIDTH / background.width)
-    const rowAmount = Math.ceil(config.VIEW_HEIGHT / background.height)
+    const columnAmount = Math.ceil(config.VIEW_WIDTH / backgroundTexture.width)
+    const rowAmount = Math.ceil(config.VIEW_HEIGHT / backgroundTexture.height)
 
     getSizeArray(columnAmount, rowAmount).forEach((arr, xIndex) => {
         arr.forEach(yIndex => {
-            const back = new PIXI.Sprite(
-                loader.resources['assets\\img\\winning.png'].texture);
+            const back = new PIXI.Sprite(backgroundTexture);
             back.x = xIndex * back.width;
             back.y = yIndex * back.height;
             backgroundContainer.addChild(back)
-            backgroundContainer.x = config.MARGIN;
-            backgroundContainer.y = config.MARGIN;
+            backgroundContainer.x = 0;
+            backgroundContainer.y = -50;
         })
     })
     app.stage.addChild(backgroundContainer);
@@ -98,10 +98,8 @@ function setup() {
 
     const viewwindow = new PIXI.Graphics()
     const x = config.MARGIN;
-    const y = config.MARGIN;
-    viewwindow.lineStyle(4, 0x2344f2, 1).drawRoundedRect(x, y, config.VIEW_WIDTH, config.VIEW_HEIGHT, 20);
+    viewwindow.beginFill(0x4287f5, 0.5).drawRoundedRect(x, 335, config.VIEW_WIDTH, config.VIEW_HEIGHT, 20);
     app.stage.addChild(viewwindow);
-
 
     const button = new PIXI.Sprite(loader.resources['assets\\img\\btn_spin.png'].texture);
     button.interactive = true;
@@ -111,7 +109,10 @@ function setup() {
         config.HEIGHT - config.BTN_RADIUS
     );
     button.cursor = "pointer"
+    button.addListener('mouseover', () => (button.texture = loader.resources['assets\\img\\btn_spin.png'].texture));
     button.addListener("pointerdown", () => {
+        button.texture = loader.resources['assets\\img\\btn_spin.png'].texture
+        startPlay(allReels)
         allReels.forEach(reel => {
             reel.startTime = Date.now()
             reel.position = Math.ceil(Math.random() * allReels.length)
@@ -119,18 +120,26 @@ function setup() {
         })
     })
     app.stage.addChild(button);
-    // const pl = timer(play)
+
+    const overlay = new PIXI.Sprite(loader.resources['assets\\img\\misc.png'].texture);
+    overlay.position.set(280, 315);
+    overlay.width = 848;
+    overlay.height = 230;
+    app.stage.addChild(overlay)
+
+    const gameLoop = () => { }
+
     app.ticker.add(() => {
-        play(allReels, config)
+        state(allReels, state, config)
     })
+    function startPlay(allReels: Reel[]) {
+        allReels.forEach(reel => {
+            reelSpinSound.play();
+            reel.startTime = Date.now()
+            reel.position = Math.ceil(Math.random() * allReels.length)
+            reel.stopTime = null;
+        })
+    }
 }
 
-// const timer = (fn: StateType) => {
-//     let time = 5;
-//     return (stage: PIXI.Container) => {
-//         if (time === 0) return;
-//         time--;
-//         fn(stage)
-//     }
-// }
 
