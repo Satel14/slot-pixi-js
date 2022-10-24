@@ -18,8 +18,8 @@ export default (allReels: Reel[], config: ConfigType) => {
     allReels.forEach(reel => {
         if (reel.stopTime) {
             const now = Date.now();
-            const phase = Math.min(1, (now - reel.spinTime) / 1000);
-            const position = interpolation(0, reel.position * config.HEIGHT, easing(phase));
+            const phase = Math.min(1, (now - reel.stopTime) / 1000);
+            const position = interpolation(0, reel.position * config.SYMBOL_HEIGHT, easing(phase));
             reel.container.y = position;
         } 
         else {

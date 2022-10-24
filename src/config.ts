@@ -4,7 +4,7 @@ export const config = {
     MARGIN: 300,
     REEL_AMOUNT: 3,
     SYMBOLS_AMOUNT: 3,
-
+    BTN_RADIUS: 100,
     get VIEW_WIDTH() {
         return this.WIDTH - this.MARGIN * 2;
     },
