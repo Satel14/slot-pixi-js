@@ -1,11 +1,12 @@
 export const config = {
     WIDTH: 1400,
     HEIGHT: 800,
-    MARGIN: 300,
+    MARGIN: 250,
     REEL_AMOUNT: 3,
     SYMBOLS_AMOUNT: 3,
     BTN_RADIUS: 100,
-    SPIN_SPEED: 10,
+    SPIN_SPEED: 20,
+    BASE_SPIN_DURATION: 1000,
     get VIEW_WIDTH() {
         return this.WIDTH - this.MARGIN * 2;
     },
