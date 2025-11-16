@@ -34,6 +34,7 @@ const loader = new PIXI.Loader();
 loader.add(imgPaths).load(setup)
 
 function setup() {
+    const state: StateType = play;
     const allReels: Reel[] = [];
 
     const app = new PIXI.Application({
@@ -169,7 +170,7 @@ function setup() {
 
         switch (gameStage) {
             case 'playing':
-                play(allReels, play, config);
+                play(allReels, state, config);
                 button.interactive = false;
                 button.buttonMode = false;
                 button.texture = loader.resources['assets\\img\\btn_spin_disable.png'].texture;
