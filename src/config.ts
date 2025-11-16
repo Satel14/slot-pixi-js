@@ -1,3 +1,11 @@
+export const WIN_LINES = [
+    [1, 1, 1],
+    [0, 0, 0],
+    [2, 2, 2],
+    [0, 1, 2],
+    [2, 1, 0],
+];
+
 export const config = {
     WIDTH: 1400,
     HEIGHT: 800,
@@ -7,6 +15,11 @@ export const config = {
     BTN_RADIUS: 100,
     SPIN_SPEED: 20,
     BASE_SPIN_DURATION: 1000,
+    WIN_ANIMATION_DURATION: 2000,
+    PARTICLE_COUNT: 50,
+    ENABLE_PARTICLES: true,
+    ENABLE_WIN_LINES: true,
+    FPS_COUNTER: true,
     get VIEW_WIDTH() {
         return this.WIDTH - this.MARGIN * 2;
     },

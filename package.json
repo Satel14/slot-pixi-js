@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.ts",
   "scripts": {
-    "start": "webpack-dev-server --open",
-    "build": "webpack"
+    "start": "set NODE_OPTIONS=--openssl-legacy-provider && webpack-dev-server --open",
+    "build": "set NODE_OPTIONS=--openssl-legacy-provider && webpack"
   },
   "author": "",
   "license": "ISC",

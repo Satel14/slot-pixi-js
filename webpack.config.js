@@ -9,7 +9,9 @@ module.exports = {
         rules: [
             {
                 test: /\.ts$/,
-                loader: 'ts-loader'
+                use: 'ts-loader',
+                include: path.resolve(__dirname, 'src'),
+                exclude: /node_modules/
             }
         ]
     },
@@ -24,11 +26,13 @@ module.exports = {
         new HtmlWebpackPlugin({
             title: 'Slot'
         }),
-        new CopyPlugin([
-            {
-                from: 'src/assets',
-                to: 'assets'
-            }
-        ])
+        new CopyPlugin(
+            [
+                {
+                    from: 'src/assets',
+                    to: 'assets'
+                }
+            ]
+        )
     ]
 };

@@ -2,10 +2,18 @@
     "compilerOptions": {
       "outDir": "./dist/",
       "sourceMap": true,
-      "noImplicitAny": true,
+      "noImplicitAny": false,
       "moduleResolution": "node",
       "module": "ES6",
       "target": "es5",
-      "allowJs": true
-    }
+      "lib": ["es2015", "dom"],
+      "allowJs": true,
+      "skipLibCheck": true
+    },
+    "include": [
+      "src/**/*"
+    ],
+    "exclude": [
+      "node_modules"
+    ]
   }

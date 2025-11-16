@@ -9,7 +9,7 @@ export default class Reel {
     public position: number;
     public stopTime: number;
     public isStopped: boolean;
-    public previousPosition: number;
+    public previousPosition: number | null;
     public rectangles: PIXI.Graphics[];
     constructor(container: PIXI.Container, symbols: PIXI.Sprite[], rectangles: PIXI.Graphics[], filter: PIXI.filters.BlurFilter, startTime: number, spinTime: number) {
         this.container = container;
@@ -36,7 +36,7 @@ export default class Reel {
         return Date.now() - this.startTime >= this.spinTime;
     }
     public reelStopped(currentPosition: number) {
-        return this.previousPosition - currentPosition === 0;
+        return this.previousPosition !== null && this.previousPosition - currentPosition === 0;
     }
     public removeRect(rectangles: PIXI.Graphics) {
         rectangles.destroy()
@@ -47,4 +47,3 @@ export default class Reel {
         this.rectangles.unshift(rectangles)
     }
 }
-
